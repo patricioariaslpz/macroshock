@@ -1,1 +1,0 @@
-from .macroshock import SVAR
