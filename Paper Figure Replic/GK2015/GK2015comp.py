@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from macroshock_raw import SVAR
+from macroshock import SVAR
 import matplotlib.pyplot as plt
 
 data4= pd.read_excel("GK2015_Data.xlsx")

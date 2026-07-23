@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-from macroshock_raw import SVAR
+from macroshock import SVAR
 
 data1= pd.read_excel("SW2001_Data.xlsx")
 data11= pd.read_excel("SW2001_IRFs.xlsx",sheet_name=["shock_1", "shock_2", "shock_3"])

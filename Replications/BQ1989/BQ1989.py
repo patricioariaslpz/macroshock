@@ -1,5 +1,5 @@
 import pandas as pd
-from macroshock_raw import SVAR
+from macroshock import SVAR
 
 # --- DATA LOADING & SETUP ---
 data2= pd.read_excel("BQ1989_Data.xlsx")
