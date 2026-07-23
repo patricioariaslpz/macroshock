@@ -5,6 +5,7 @@
 ## Main Branch (GitHub)
 
 * **macroshock_v1_0_0.pdf** is the white paper for macroshock v1.0.0.
+* **macroshock_documentation.pdf** is the complete technical documentation for macroshock's latest version (v1.0.1).
 * **Paper Figure Replic** contains data and code to replicate the figures found in _macroshock_v1_0_0.pdf_.
 * **Replications** contains data and code to replicate the four benchmark models (macroshock_v1_0_0.pdf/4.Replications).
 
