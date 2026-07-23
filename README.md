@@ -2,6 +2,14 @@
 
 **macroshock** is a Python library for the estimation and analysis of **SVAR** (Structural Vector Autoregression) models aimed at applied macroeconometrics. It allows you to estimate restricted VARs, identify the structural system using four different methodologies, compute impulse-response functions (IRF), forecast error variance decomposition (FEVD), and forecasts, all with bootstrap confidence intervals and ready-to-use plotting.
 
+## Main Branch (GitHub)
+
+* **macroshock_v1_0_0.pdf** is the white paper for macroshock v1.0.0.
+* **Paper Figure Replic** contains data and code to replicate the figures found in _macroshock_v1_0_0.pdf_.
+* **Replications** contains data and code to replicate the four benchmark models (macroshock_v1_0_0.pdf/4.Replications).
+
+_Note: data for replications is taken from Cesa-Bianchi's VAR-Toolbox v4.0, visit **https://github.com/ambropo/VAR-Toolbox** for full information._
+
 ## Main Features
 
 * **Restricted VAR estimation** (Lütkepohl-style GLS), with support for:
