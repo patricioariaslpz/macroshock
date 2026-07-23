@@ -4,13 +4,13 @@
 
 ## Main Features
 
-* **Restricted VAR estimation** (Lütkepohl-style GLS), with support for:
+* - **Restricted VAR estimation** (Lütkepohl-style GLS), with support for:
 
   - Constant, trend and quadratic trend.
   - Exogenous variables.
   - Seasonal dummies (quarterly or monthly).
   - Linear restrictions on the coefficients (`restrictions='zeros'` or `'custom zeros'`).
-* **Four structural identification methods**:
+* - **Four structural identification methods**:
 
 |Method|Description|
 |-|-|
@@ -19,12 +19,12 @@
 |`signs`|Sign restrictions (orthogonal rotation sampling with acceptance/rejection)|
 |`IV`|Instrumental variable identification (proxy-SVAR)|
 
-* **Impulse-response functions (IRF)** with confidence bands.
-* **Forecast error variance decomposition (FEVD)**.
-* **Conditional forecasts** with confidence bands.
-* **Bootstrap** (normal or *wild* resampling) for inference.
-* **Built-in plots** for IRF, forecasts and FEVD, publication-ready.
-* **Stability test** of the system (characteristic polynomial roots).
+* - **Impulse-response functions (IRF)** with confidence bands.
+* - **Forecast error variance decomposition (FEVD)**.
+* - **Conditional forecasts** with confidence bands.
+* - **Bootstrap** (normal or *wild* resampling) for inference.
+* - **Built-in plots** for IRF, forecasts and FEVD, publication-ready.
+* - **Stability test** of the system (characteristic polynomial roots).
 
 ## Installation
 
@@ -59,7 +59,7 @@ model = SVAR(
     horizon=8,         # forecast horizon
     past=12,           # past periods to show in the forecast
     alpha=32,          # confidence interval level (32 -> 68% central band)
-    reps\_default=1000, # bootstrap replications
+    reps=1000, # bootstrap replications
 )
 
 # Runs the complete pipeline: Y/X construction, VAR estimation,
@@ -79,13 +79,13 @@ model.S()                # identifies the structural system (matrix B)
 model.summary()          # prints the estimation summary
 
 # Impulse response to shock 1, with "pair" bands (low/high percentile)
-ir = model.ImpulseResponse(shock=1, show=True, bands="pair")
+ir = model.ImpulseResponse(1, show=True, bands="pair")
 
 # Forecast with "many" bands (multiple stacked confidence levels)
 fc = model.Forecast(show=True, bands="many")
 
-# Forecast error variance decomposition for shock 1
-vd = model.VarianceDecomp(shock=1, show=True)
+# Forecast error variance decomposition for variable 1
+vd = model.VarianceDecomp(1, show=True)
 ```
 
 Each of these methods returns a dictionary with the point estimate and confidence bands at different levels (`'point'`, `'low'`, `'high'`, `2.5`, `5`, `95`, `97.5`, `0.5`, `99.5`), indexed by variable name.
@@ -106,7 +106,7 @@ By default it uses the Cholesky decomposition. If `matrix\_short` is passed (a b
 model = SVAR(data=df, variables=variables, lags=4, method="long")
 ```
 
-By default it uses the Cholesky decomposition. If `matrix\_short` is passed (a binary matrix of 1s and 0s), the `B` matrix satisfying the indicated zero restrictions is solved numerically.
+By default it uses the Cholesky decomposition. If `matrix\_long` is passed (a binary matrix of 1s and 0s), the `B` matrix satisfying the indicated zero restrictions is solved numerically.
 
 ### 3\. Sign restrictions
 
@@ -120,7 +120,7 @@ model = SVAR(
     method="signs",
     matrix\_signs=matrix\_signs,
     steps\_signs=4,       # horizons over which signs are checked
-    reps\_default=1000,   # number of accepted B matrices
+    reps=1000,   # number of accepted B matrices
 )
 ```
 
