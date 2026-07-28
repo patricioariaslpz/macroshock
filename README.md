@@ -20,7 +20,7 @@ _Note: data for replications is taken from Cesa-Bianchi's VAR-Toolbox v4.0, visi
 |Constant, trend and quadratic trend|`const`|
 |Exogenous variables|`data_exogenous`,`variables_exogenous`|
 |Seasonal dummies (quarterly or monthly)|`DUM`|
-|Linear restrictions on the coefficients|`restrictions`|
+|Linear restrictions on the coefficients|`restrictions` and more|
 
 * **Four structural identification methods**:
 
