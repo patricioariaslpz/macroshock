@@ -20,7 +20,7 @@ _Note: data for replications is taken from Cesa-Bianchi's VAR-Toolbox v4.0, visi
 |Constant, trend and quadratic trend|`const`|
 |Exogenous variables|`data_exogenous`,`variables_exogenous`|
 |Seasonal dummies (quarterly or monthly)|`DUM`|
-|Linear restrictions on the coefficients (`restrictions='zeros'` or `'custom zeros'`)|`restrictions`, `R`|
+|Linear restrictions on the coefficients|`restrictions`|
 
 * **Four structural identification methods**:
 
@@ -84,6 +84,8 @@ model.stability(show=True)
 
 ### Step-by-step Usage
 
+The model.run() method executes the next python method secuence in a single line:
+
 ```python
 model.YX()             # builds Y, X and the restriction matrix R
 model.VAR()             # estimates the reduced-form VAR and the companion matrix F
@@ -101,6 +103,76 @@ vd = model.VarianceDecomp(1, show=True)
 ```
 
 Each of these methods returns a dictionary with the point estimate and confidence bands at different levels (`'point'`, `'low'`, `'high'`, `2.5`, `5`, `95`, `97.5`, `0.5`, `99.5`), indexed by variable name.
+
+## GLS Restrictions
+
+The GLS methodology can be input in four ways depending on the level of depth one needs the restrictions to be. In this section the example of restrictions will be a bivariate VAR with `lags = 2` and `variables = [ y , u ]`. The restrictions are $$a^{(1)}\_{12}=a^{(2)}\_{12}=0$$, equal to saying `y` is an $$AR(2)$$ process or that `u` does not impact `y`inside the autoregression.
+
+### Standard [`standard`]
+
+Standard notation with $$\beta$$ being the vector of all the regressors, matrix $$C$$ (`c_matrix`) being the coefficients of the linear combination and $$c$$ (`c_vector`) being the intercept of the system. The system of constraint is given by $$(C\beta=c)$$.
+
+```python
+c_matrix = [[0,0,0,0,1,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,1,0]]
+
+c_vector = [0,
+            0]
+
+modelo = SVAR(data2, variables, lags,
+            restrictions='standard',
+            c_matrix=c_matrix,
+            c_vector=c_vector,
+            )
+
+modelo.run()
+```
+
+### Custom Zero Restrictions [`zeros custom`]
+
+This notation uses a `n_vars`$$\times$$`n_cols` matrix (`r_matrix`). If `r_matrix[i][j]=0` the *j*th regressor of the *i*th equation has a zero-constraint parameter and if `r_matrix[i][j]=1` then the same regressor has a free parameter.
+
+```python
+r_matrix = [[1,1,0,1,0],
+            [1,1,1,1,1]]
+
+modelo = SVAR(data, variables, lags,
+            restrictions='zeros custom',
+            r_matrix=r_matrix,
+            )
+
+modelo.run()
+```
+
+### Absolut Zero Restrictions [`zeros`]
+
+This notation uses a `n_vars`$$\times$$`n_vars` matrix (`r_matrix`). If `r_matrix[i][j]=0` all of the *j*th variable lagged autoregressive parameters are zero inside the *i*th equation and if `r_matrix[i][j]=1` then all lagged coefficients of the *j*th variable are free for the *i*th equation.
+
+```python
+r_matrix = [[1,0],
+            [1,1]]
+
+modelo = SVAR(data, variables, lags,
+            restrictions='zeros',
+            r_matrix=r_matrix,
+            )
+
+modelo.run()
+```
+
+### Custom [`custom`]
+
+This notation follows Lutkepohl (2005) p.193-197 system $$(R\gamma=r)$$, so `r_matrix` and `r_vector` follow $$R$$ and $$r$$ definitions shown in the book.
+
+```python
+modelo = SVAR(data, variables, lags,
+            restrictions='custom',
+            r_matrix=r_matrix,
+            r_vector=r_vector,
+            )
+
+modelo.run()
+```
 
 ## Structural Identification
 
